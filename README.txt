@@ -1,21 +1,21 @@
+п»їthis file can be read in Russian by downloading it because github does not support Russian!
+
 RU:
-В файле words.txt настраивается количество попыток и слова.
-Если вы хотите указать количество попыток, то измените значение в самом начале файла,
-Дальше записывайте слова НА АНГЛИЙСКОМ, каждое слово с новой строки.
-Если не написать количество попыток, т.е. удалить их,
-то будет выходить ошибка, и игра не запуститься!
+РњРёРЅРё-РёРіСЂР° `СѓРіР°РґР°Р№ СЃР»РѕРІРѕ` СЃ РґРІСѓРјСЏ СЂРµР¶РёРјР°РјРё РёРіСЂС‹: РѕРґРёРЅРѕС‡РЅС‹Р№ Рё РґР»СЏ РґРІРѕРёС….
+РРЅС„РѕСЂРјР°С†РёСЋ РѕР± РѕР±РЅРѕРІР»РµРЅРёСЏС… Рё РїР»Р°РЅР°С… РЅР° СЃР»РµРґСѓСЋС‰РёРµ РѕР±РЅРѕРІР»РµРЅРёСЏ РјРѕР¶РµС‚Рµ РїРѕСЃРјРѕС‚СЂРµС‚СЊ РІ СЃР°РјРѕР№ РёРіСЂРµ
+РІС‹Р±СЂР°РІ РІ РіР»Р°РІРЅРѕРј РјРµРЅСЋ РїСѓРЅРєС‚ 2  (INFO).
 
-Что добавилось?
-Смотрите INFO в игре =)
-
+Р“Р»Р°РІРЅРѕРµ РёР·РјРµРЅРµРЅРёРµ РІ СЌС‚РѕРј РѕР±РЅРѕРІР»РµРЅРёРё, СЌС‚Рѕ РґРѕР±Р°РІР»РµРЅРёРµ СЂРµР¶РёРјР° РґР»СЏ РґРІРѕРёС….
+РўР°РєР¶Рµ Р±С‹Р» РґРѕР±Р°РІР»РµРЅ РїСѓРЅРєС‚ `Settings` РІ РіР»Р°РЅРѕРј РјРµРЅСЋ, РІС‹Р±СЂР°РІ РєРѕС‚РѕСЂС‹Р№ РІС‹ РјРѕР¶РµС‚Рµ РЅР°СЃС‚СЂРѕРёС‚СЊ РєРѕР»РёС‡РµСЃС‚РІРѕ РїРѕРїС‹С‚РѕРє,
+РЅРѕ РЅРµ Р±РѕР»РµРµ 25. Р¤Р°Р№Р» `settings.bin` С…СЂР°РЅРёС‚ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РїРѕРїС‹С‚РєР°С…, РЅРѕ РёР·РјРµРЅРёС‚СЊ РІС‹ РµРіРѕ РЅРµ СЃРјРѕР¶РµС‚Рµ,
+РїРѕС‚РѕРјСѓ С‡С‚Рѕ РѕРЅ Р·Р°С€РёС„СЂРѕРІР°РЅ.
 
 EN:
-In the file words.txt the number of attempts and words are configured.
-If you want to specify the number of attempts, then change the value at the very beginning of the file,
-Then write down the words in ENGLISH, each word from a new line.
-If you do not write the number of attempts, i.e. delete them,
-an error will appear, and the game will not start!
+A mini-game `guess the word' with two game modes: single and for two.
+You can view information about updates and plans for the next updates in the game
+itself by selecting item 2 (INFO) in the main menu.
 
-What has been added?
-Check INFO in game =)
-
+The main change in this update is the addition of a two-person mode.
+The `Settings` option has also been added to the context menu, by selecting which you can set the number of attempts,
+but no more than 25. The `settings' file.bin` stores information about attempts, but you can't change
+it because it's encrypted.
