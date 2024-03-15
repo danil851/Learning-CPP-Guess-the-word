@@ -1,5 +1,6 @@
 #ifndef GAME_H
 #define GAME_H
+#include "DataSave.h"
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -11,6 +12,22 @@
 using namespace std;
 #define str string
 class Game {
+private:
+    Data data;
+    char close_symbol = '*';
+    vector <string> selected_theme = {
+    "0. Exit\n1. **** (sel.)\n2. ????\n3. ||||\n4. ^^^^\n5. ####\n6. $$$$\n7. @@@@\n8. ____\n9. ----\n10. &&&&\nEnter: ",
+    "0. Exit\n1. ****\n2. ???? (sel.)\n3. ||||\n4. ^^^^\n5. ####\n6. $$$$\n7. @@@@\n8. ____\n9. ----\n10. &&&&\nEnter: ",
+    "0. Exit\n1. ****\n2. ????\n3. |||| (sel.)\n4. ^^^^\n5. ####\n6. $$$$\n7. @@@@\n8. ____\n9. ----\n10. &&&&\nEnter: ",
+    "0. Exit\n1. ****\n2. ????\n3. ||||\n4. ^^^^ (sel.)\n5. ####\n6. $$$$\n7. @@@@\n8. ____\n9. ----\n10. &&&&\nEnter: ",
+    "0. Exit\n1. ****\n2. ????\n3. ||||\n4. ^^^^\n5. #### (sel.)\n6. $$$$\n7. @@@@\n8. ____\n9. ----\n10. &&&&\nEnter: ",
+    "0. Exit\n1. ****\n2. ????\n3. ||||\n4. ^^^^\n5. ####\n6. $$$$ (sel.)\n7. @@@@\n8. ____\n9. ----\n10. &&&&\nEnter: ",
+    "0. Exit\n1. ****\n2. ????\n3. ||||\n4. ^^^^\n5. ####\n6. $$$$\n7. @@@@ (sel.)\n8. ____\n9. ----\n10. &&&&\nEnter: ",
+    "0. Exit\n1. ****\n2. ????\n3. ||||\n4. ^^^^\n5. ####\n6. $$$$\n7. @@@@\n8. ____ (sel.)\n9. ----\n10. &&&&\nEnter: ",
+    "0. Exit\n1. ****\n2. ????\n3. ||||\n4. ^^^^\n5. ####\n6. $$$$\n7. @@@@\n8. ____\n9. ---- (sel.)\n10. &&&&\nEnter: ",
+    "0. Exit\n1. ****\n2. ????\n3. ||||\n4. ^^^^\n5. ####\n6. $$$$\n7. @@@@\n8. ____\n9. ----\n10. &&&& (sel.)\nEnter: "
+    };
+    string text = selected_theme[0];
 public:
     vector <string> words = {};
     // Загрузка слов из файла в вектор
@@ -31,46 +48,83 @@ public:
                     break;
                 }
             }
-            ifstream fileone{"settings.bin", ios_base::binary};
-            fileone.read((char*)&tries, sizeof(int));
-            cout << tries << endl;
-            fileone.close();
+            data.Load("Attempts", &tries);
             return 0;
             break;
         }
     };
 
     int Settings() {
-        int choice;
-        system("cls");
-        cout << "1. Set attempts\n2. Go to main\nEnter: ";
-        cin >> choice;
-        if (choice == 1) {
-            while (true) {
+        while (true) {
+            int choice;
+            system("cls");
+            cout << "0. Go to main\n1. Set attempts\n2. closed symbols theme\nEnter: ";
+            cin >> choice;
+            if (choice == 0) {
                 system("cls");
-                int atts;
-                cout << "Set attempts value: ";
-                cin >> atts;
-                if (atts > 25) {
-                    cout << "The number of attempts should not exceed 25!" << endl;
-                } else {
-                    ofstream file{"settings.bin", ios_base::binary};
-                    if (!file) {
-                        cout << "File `settings.bin` was not found! Create him in game directory!" << endl;
+                return 1;
+            }
+            else if (choice == 1) {
+                while (true) {
+                    cout << "------------------------" << endl;
+                    int atts;
+                    cout << "Set attempts value: ";
+                    cin >> atts;
+                    if (atts > 25) {
+                        cout << "The number of attempts should not exceed 25!" << endl;
                     } else {
-                        file.clear();
-                        file.write((char*)&atts, sizeof(int));
-                        file.close();
+                        data.Save("Attempts", atts);
                         break;
                     }
                 }
             }
+            else if (choice == 2) {
+                bool menu = true;                
+                int choicee;
+                data.Load("Theme_symbol", &close_symbol);
+                while (menu) {
+                    system("cls");
+                    if (close_symbol == '*') {
+                        text = selected_theme[0];
+                    } else if (close_symbol == '?') {
+                        text = selected_theme[1];
+                    }else if (close_symbol == '|') {
+                        text = selected_theme[2];
+                    }else if (close_symbol == '^') {
+                        text = selected_theme[3];
+                    }else if (close_symbol == '#') {
+                        text = selected_theme[4];
+                    }else if (close_symbol == '$') {
+                        text = selected_theme[5];
+                    }else if (close_symbol == '@') {
+                        text = selected_theme[6];
+                    }else if (close_symbol == '_') {
+                        text = selected_theme[7];
+                    }else if (close_symbol == '-') {
+                        text = selected_theme[8];
+                    }else if (close_symbol == '&') {
+                        text = selected_theme[9];
+                    }
+                    cout << text << endl;
+                    cin >> choicee;
+                    switch(choicee) {
+                        case 0: {system("cls"); menu = false;}break;
+                        case 1: {close_symbol = '*'; text = selected_theme[0]; data.Save("Theme_symbol", close_symbol);}break;
+                        case 2: {close_symbol = '?'; text = selected_theme[1]; data.Save("Theme_symbol", close_symbol);}break;
+                        case 3: {close_symbol = '|'; text = selected_theme[2]; data.Save("Theme_symbol", close_symbol);}break;
+                        case 4: {close_symbol = '^'; text = selected_theme[3]; data.Save("Theme_symbol", close_symbol);}break;
+                        case 5: {close_symbol = '#'; text = selected_theme[4]; data.Save("Theme_symbol", close_symbol);}break;
+                        case 6: {close_symbol = '$'; text = selected_theme[5]; data.Save("Theme_symbol", close_symbol);}break;
+                        case 7: {close_symbol = '@'; text = selected_theme[6]; data.Save("Theme_symbol", close_symbol);}break;
+                        case 8: {close_symbol = '_'; text = selected_theme[7]; data.Save("Theme_symbol", close_symbol);}break;
+                        case 9: {close_symbol = '-'; text = selected_theme[8]; data.Save("Theme_symbol", close_symbol);}break;
+                        case 10: {close_symbol = '&'; text = selected_theme[9]; data.Save("Theme_symbol", close_symbol);}break;
+                        default: break;
+                    }
+                }
+            }
         }
-        else if (choice == 2) {
-            return 1;
-        }
-        return 0;
-    }
+    };
 
     // Проверка проиграл ли игрок
     bool LooseCheck(int& tries) {
@@ -106,6 +160,8 @@ public:
     // Режим двух игроков
     int GameMainTwoPlayers(int &tries) {
         string name1, name2;
+        data.Load("Theme_symbol", &close_symbol);
+        // data.Load("Theme_text", &text);
         int first = 0;
         while (true) {
             first++;
@@ -136,13 +192,15 @@ public:
             int tries1 = tries, tries2 = tries;
             string word1, word2, hidden_word1, hidden_word2, letter1, letter2;
             bool loose1 = false, loose2 = false, win1 = false, win2 = false;
+            vector <char> used_letter1 = {};
+            vector <char> used_letter2 = {};
             WordChoose(word1);
             WordChoose(word2);
             for (int i = 0; i < word1.length(); i++) {
-                hidden_word1 += "*";
+                hidden_word1 += close_symbol;
             }
             for (int i = 0; i < word2.length(); i++) {
-                hidden_word2 += "*";
+                hidden_word2 += close_symbol;
             }
             while (hidden_word1 != word1 || hidden_word2 != word2 || win1 != true || win2 != true || loose1 != true || loose2 != true) {
                 string newWord1 = "", newWord2 = "";
@@ -159,19 +217,28 @@ public:
                         cout << "Enter the letter: ";
                         cin >> letter1;
                         if (word1.find(letter1) <= word1.length()) {
-                            if (*find(hidden_word1.begin(), hidden_word1.end(), letter1[0]) != letter1[0]) {
-                                for (int i = 0; i < word1.length(); i++) {
-                                    if (letter1[0] == word1[i]) {newWord1 += letter1[0];}
-                                    else {newWord1 += hidden_word1[i];}
-                                }
-                                hidden_word1 = newWord1;
-                                if (word1 == hidden_word1) {win1 = true; break;}
-                            } else {cout << "Letter is already there!" << endl;}
+                            if (find(used_letter1.begin(), used_letter1.end(), letter1[0]) != used_letter1.end()) {
+                                if (*find(hidden_word1.begin(), hidden_word1.end(), letter1[0]) != letter1[0]) {
+                                    for (int i = 0; i < word1.length(); i++) {
+                                        if (letter1[0] == word1[i]) {newWord1 += letter1[0];}
+                                        else {newWord1 += hidden_word1[i];}
+                                    }
+                                    hidden_word1 = newWord1;
+                                    cout << "Letter found!" << endl;
+                                    used_letter1.push_back(letter1[0]);
+                                    if (word1 == hidden_word1) {win1 = true; break;}
+                                } else {cout << "Letter is already there!" << endl;}
+                            } else {cout << "You've already called this letter!" << endl;}
                         } else {
-                            tries1 -=1;
-                            cout << "Letter not found!\n" << name1 << " tries: " << tries1 << endl;
-                            if (LooseCheck(tries1)==true) {loose1 = true; break;}
-                            fucks1++;
+                            if (find(used_letter1.begin(), used_letter1.end(), letter1[0]) != used_letter1.end()) {
+                                cout << "You've already called this letter!" << endl;
+                            } else {
+                                tries1 -=1;
+                                cout << "Letter not found!\n" << name1 << " tries: " << tries1 << endl;
+                                used_letter1.push_back(letter1[0]);
+                                if (LooseCheck(tries1)==true) {loose1 = true; break;}
+                                fucks1++;
+                            }
                         }
                     }
                     if (win1 == true || win2 == true || loose1 == true && loose2 == true) {break;}
@@ -184,19 +251,28 @@ public:
                         cout << "Enter the letter: ";
                         cin >> letter2;
                         if (word2.find(letter2) <= word2.length()) {
-                            if (*find(hidden_word2.begin(), hidden_word2.end(), letter2[0]) != letter2[0]) {
-                                for (int i = 0; i < word2.length(); i++) {
-                                    if (letter2[0] == word2[i]) {newWord2 += letter2[0];}
-                                    else {newWord2 += hidden_word2[i];}
-                                }
-                                hidden_word2 = newWord2;
-                                if (word2 == hidden_word2) {win2 = true; break;}
-                            } else {cout << "Letter is already there!" << endl;}
+                            if (find(used_letter2.begin(), used_letter2.end(), letter2[0]) != used_letter2.end()) {
+                                if (*find(hidden_word2.begin(), hidden_word2.end(), letter2[0]) != letter2[0]) {
+                                    for (int i = 0; i < word2.length(); i++) {
+                                        if (letter2[0] == word2[i]) {newWord2 += letter2[0];}
+                                        else {newWord2 += hidden_word2[i];}
+                                    }
+                                    hidden_word2 = newWord2;
+                                    cout << "Letter found!" << endl;
+                                    used_letter2.push_back(letter2[0]);
+                                    if (word2 == hidden_word2) {win2 = true; break;}
+                                } else {cout << "Letter is already there!" << endl;}
+                            } else {cout << "You've already called this letter!" << endl;}
                         } else {
-                            tries2 -=1;
-                            cout << "Letter not found!\n" << name2 << " tries: " << tries2 << endl;
-                            if (LooseCheck(tries2)==true) {loose2 = true; break;}
-                            fucks2++;
+                            if (find(used_letter2.begin(), used_letter2.end(), letter2[0]) != used_letter2.end()) {
+                                cout << "You've already called this letter!" << endl;
+                            } else {
+                                tries2 -=1;
+                                cout << "Letter not found!\n" << name2 << " tries: " << tries2 << endl;
+                                used_letter2.push_back(letter2[0]);
+                                if (LooseCheck(tries2)==true) {loose2 = true; break;}
+                                fucks2++;
+                            }
                         }
                     }
                     if (win1 == true || win2 == true || loose1 == true && loose2 == true) {break;}
@@ -219,6 +295,8 @@ public:
     // Режим одного игрока
     int GameMain(int &tries) {
         int exit = 0;
+        data.Load("Theme_symbol", &close_symbol);
+        // data.Load("Theme_text", &text);
         while (true) {
             vector <char> used_letters = {};
             system("cls");
@@ -227,7 +305,7 @@ public:
             bool loose;
             WordChoose(word);
             for (int i = 0; i < word.length(); i++) {
-                closed_word += "*";
+                closed_word += close_symbol;
             }
             cout << "Attempts: " << tries << endl;
             while (closed_word != word) {
@@ -251,9 +329,15 @@ public:
                         } else {cout << "Letter is already there!" << endl;}
                     } else {cout << "You've already called this letter!" << endl;}
                 } else {
-                    tries -= 1;
-                    cout << "Letter not found!\nTries have: " << tries << endl;
-                    if (LooseCheck(tries)==true) {break;}
+                    if (find(used_letters.begin(), used_letters.end(), letter[0]) != used_letters.end()) {
+                        cout << "You've already called this letter!" << endl;
+                    }
+                    else {
+                        tries -= 1;
+                        cout << "Letter not found!\nTries have: " << tries << endl;
+                        used_letters.push_back(letter[0]);
+                        if (LooseCheck(tries)==true) {break;}
+                    }
                 }
             }
             if (exit != 1) {if (LooseCheck(tries) != true) {cout << "You guessed it!" << endl; } else if (LooseCheck(tries) == true) {cout << "You loose!\nThe hidden word was: " << word << endl;}}
@@ -272,7 +356,7 @@ public:
         // Цель игры, импорт слов и попыток
         cout << "ABOUT:\n Try to guess the words without wasting all your attempts.\n It sounds simple, but it's not like that at all. Test your vocabulary!\n When you select `Play`, words are imported from the file `eng_words.txt`.\n You can set the number of attempts in the `Settings` item in the main menu (limit of 25 attempts)." << endl;
         // Об обновлениях
-        cout << "\nUPDATES INFO:\nv1.0\n - Game release\nv1.1\n - Fixed bug with winning with a single move\nv1.2\n - Added menu\n - `words.txt` updated(at upd moment 285 words)\n - Some phrases have been changed\n - Other bug fix\nv1.3 <= THIS\n - Added two player mode\n - Some phrases have been changed\n - the import of attempts has been moved to a file `settings.txt `\n - file `words.txt` renamed to 'eng_words.txt'\n - `eng_words.txt` updated(at upd moment 520)\n - added the `Settings` item for setting attempts" << endl;
+        cout << "\nUPDATES INFO:\nv1.0\n - Game release\nv1.1\n - Fixed bug with winning with a single move\nv1.2\n - Added menu\n - `words.txt` updated(at upd moment 285 words)\n - Some phrases have been changed\n - Other bug fix\nv1.3\n - Added two player mode\n - Some phrases have been changed\n - the import of attempts has been moved to a file `settings.txt `\n - file `words.txt` renamed to 'eng_words.txt'\n - `eng_words.txt` updated(at upd moment 520)\n - added the `Settings` item for setting attempts\nv1.4 <= THIS\n - Two player mode bug fix\n - When you re-enter the letter that was named, the attempts are no longer removed" << endl;
         // Планы на будущее
         cout << "\nFUTURE PLANS:\n - Add multiplayer/online two player mode\n - Add language switch\n" << endl;
         return 0;

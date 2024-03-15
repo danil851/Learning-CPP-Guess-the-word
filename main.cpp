@@ -3,11 +3,11 @@
 
 // Главное меню
 int main() {
-    Game game;
     system("cls");
+    Game game;
     setlocale(LC_ALL, "rus");
     int choice, tries;
-    cout << "Welcome to game 'Guess the word'! v1.3\n";
+    cout << "Welcome to game 'Guess the word'! v1.4\n";
     while (true) {
         cout << "Select an action:\n1. Play\n2. Info\n3. Settings\n4. Exit\n";
         cin >> choice;
