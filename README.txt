@@ -15,7 +15,7 @@ A mini-game `guess the word' with two game modes: single and for two.
 You can view information about updates and plans for the next updates in the game
 itself by selecting item 2 (INFO) in the main menu.
 
-The main change in this update is the addition of a two-person mode.
-The `Settings` option has also been added to the context menu, by selecting which you can set the number of attempts,
-but no more than 25. The `settings' file.bin` stores information about attempts, but you can't change
-it because it's encrypted.
+v1.4
+Replaced the `settings' file.bin` to `datasave.dat', which is also encrypted, but you can change
+the number of attempts in the game itself. I also added a change to the character of the encrypted word.
+To change it, select item 2 in the `Settings` in the main menu. Everything is saved.
